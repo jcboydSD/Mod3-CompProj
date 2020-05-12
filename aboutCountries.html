@@ -1,0 +1,40 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About Countries Assignment</title>
+    <!-- This assignment practices json file calls, radio buttons, array filtering, and asynchronous JavaScript lists -->
+    <link rel="stylesheet" href="aboutCountries.css">
+</head>
+<body>
+    <h1>About Countries</h1>
+    <p>Enter Request</p>
+    <form>
+        <div class="input">
+            <div>
+                <input type="text" name="request"><br><br>
+            </div>
+            <div>
+                <input type="radio" name="choice" id="info">
+                <label for="info">Get info about the country (ex: Bermuda)</label><br>
+            </div>
+            <div>
+                <input type="radio" name="choice" id="region">
+                <label for="region">List all countries in a region (ex: Americas)</label><br>
+            </div>
+            <div>
+                <input type="radio" name="choice" id="subregion">
+                <label for="subregion">List all countries in a subregion (ex: Northern America)</label><br>
+            </div>
+            <div>
+                <input type="radio" name="choice" id="domain">
+                <label for="domain">Find a country with a given top level domain (ex: ly)</label><br><br>
+            </div>
+
+        <div class="results">
+        </div>  
+    </form>
+    
+    <script src="aboutCountries.js"></script>
+</body>
+</html>
