@@ -17,43 +17,59 @@ const getCountryData = (resource) => {
 };
 // filter and format by country
 const formatInfoData = (data, userInput) => {
-    const filteredData = data.filter(country => (country.name.toLowerCase().includes(userInput.toLowerCase()))); 
     content.innerHTML = `About ${userInput}<br>`
-    filteredData.forEach(country => content.innerHTML += `<br>country: ${country.name}<br>region: ${country.region}<br>subregion: ${country.subregion}<br>top level domain: ${country.topLevelDomain[0]}<br>`);
-    if(!filteredData.length) {
+    const result = data.reduce((accum, current) => {
+        if(current.name.toLowerCase().includes(userInput.toLowerCase())){
+            accum++;
+            content.innerHTML += `<br>country: ${current.name}<br>region: ${current.region}<br>subregion: ${current.subregion}<br>top level domain: ${current.topLevelDomain[0]}<br>`;
+        }
+        return accum;
+    }, 0);
+    if(result === 0) {
         content.innerHTML += 'That country was not found, check spelling';
     };
 };
 // filter and format by region
 const formatRegionData = (data, userInput) => {
-    const filteredData = data.filter(country => (country.region.toLowerCase() === userInput.toLowerCase())); 
-    content.innerHTML = `Countries in region ${userInput}:<br>`;
-    filteredData.forEach(country => content.innerHTML += `&nbsp&nbsp${country.name}<br>`);
-    content.innerHTML += `<br>Count of countries in region ${userInput} is ${filteredData.length}<br>`;
-    if(!filteredData.length) {
+    content.innerHTML = `Countries in region ${userInput}<br>`;
+    const result = data.reduce((accum, current) => {
+        if(current.region.toLowerCase() === userInput.toLowerCase()){
+            accum++;
+            content.innerHTML += `&nbsp&nbsp${current.name}<br>`;
+        }
+        return accum;
+    }, 0);
+    if(result === 0) {
         content.innerHTML += 'That region was not found, check spelling';
+    } else {
+        content.innerHTML += `<br>Count of countries in region ${userInput} is ${result}<br>`;
     };
 };
 // filter and format by subregion
 const formatSubregionData = (data, userInput) => {
-    const filteredData = data.filter(country => (country.subregion.toLowerCase() === userInput.toLowerCase())); 
-    content.innerHTML = `Countries in subregion ${userInput}:<br>`;
-    filteredData.forEach(country => content.innerHTML += `&nbsp&nbsp${country.name}<br>`);
-    content.innerHTML += `<br>Count of countries in subregion ${userInput} is ${filteredData.length}<br>`;
-    if(!filteredData.length) {
+    content.innerHTML = `Countries in subregion ${userInput}<br>`;
+    const result = data.reduce((accum, current) => {
+        if(current.subregion.toLowerCase() === userInput.toLowerCase()){
+            accum++;
+            content.innerHTML += `&nbsp&nbsp${current.name}<br>`;
+        }
+        return accum;
+    }, 0);
+    if(result === 0) {
         content.innerHTML += 'That subregion was not found, check spelling';
+    } else {
+        content.innerHTML += `<br>Count of countries in subregion ${userInput} is ${result}<br>`;
     };
 };
 // filter and format by top level domain
 const formatDomainData = (data, userInput) => {
     userInput = '.' + userInput;
-    console.log(userInput);
-    const filteredData = data.filter(country => (country.topLevelDomain[0].toLowerCase() === (userInput.toLowerCase()))); 
-    if(filteredData.length) {
-        content.innerHTML = `Top Level Domain ${userInput.toLowerCase()} is for ${filteredData[0].name}<br>`;
+    const result = data.find(current => current.topLevelDomain[0].toLowerCase() === userInput.toLowerCase());
+    if(result){
+        content.innerHTML = `Top Level Domain ${userInput.toLowerCase()} is for ${result.name}<br>`;
     } else {
         content.innerHTML = 'That domain was not found, check spelling -- no periods, please';
-    };
+    }
 };
 // handles
 const content = document.querySelector('.results');
